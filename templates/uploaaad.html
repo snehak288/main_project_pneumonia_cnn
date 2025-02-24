@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    body {
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+      color: aliceblue;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-image: url('{{ url_for('static', filename='bg2.gif') }}');
+      background-repeat: no-repeat;
+      background-size: cover;
+      color: white;
+      font-size: 1.1rem;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      font-size: 2rem;
+      font-weight: 700;
+    }
+
+    .button {
+      padding: 15px 30px;
+      background-color: rgba(27, 209, 173, 0.728);
+      color: rgb(195, 220, 227);
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: background-color 0.3s;
+      backdrop-filter: blur(5px);
+      margin: 10px;
+    }
+
+    .button:hover {
+      background-color: rgba(21, 69, 152, 0.8);
+    }
+
+    .output {
+      margin-top: 20px;
+      font-size: 1.5rem;
+      text-align: center;
+    }
+
+    .preview-container {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .preview-image {
+      max-width: 300px;
+      max-height: 300px;
+      margin-top: 10px;
+      border: 2px solid white;
+      border-radius: 10px;
+    }
+
+    .file-name {
+      margin-top: 10px;
+      font-size: 1rem;
+    }
+    .button1{
+
+position: absolute;
+top: 10px; /* Distance from the top */
+left: 10px; /* Distance from the left */
+padding: 10px 20px;
+background-color: #8e968e65;
+color: white;
+border: none;
+border-radius: 5px;
+font-size: 16px;
+cursor: pointer;
+border-radius: 5px;
+font-size: 16px;
+cursor: pointer;
+display: flex; /* Align icon and text */
+align-items: center;
+gap: 8px; 
+}
+.button1:hover {
+background-color: #5e6769;
+}
+.button1 i {
+font-size: 16px; /* Icon size */
+}
+.button:hover {
+background-color: rgba(21, 69, 152, 0.8);
+}
+  </style>
+</head>
+<body>
+  <h1>Upload X-ray</h1>
+  <input type="file" id="fileInput" style="display: none;" accept="image/*" />
+  <button class="button" onclick="document.getElementById('fileInput').click()">Upload</button>
+  <button class="button1" onclick="redirectToMain()"> <i class="fas fa-home"></i>Home</button>
+
+  <div id="output" class="output"></div>
+  <div class="preview-container">
+    <img id="previewImage" class="preview-image" src="#" alt="Selected Image" style="display: none;" />
+    <p id="fileName" class="file-name"></p>
+  </div>
+
+  <script>
+    const fileInput = document.getElementById('fileInput');
+    const output = document.getElementById('output');
+    const previewImage = document.getElementById('previewImage');
+    const fileName = document.getElementById('fileName');
+
+    fileInput.addEventListener('change', async (event) => {
+      const file = event.target.files[0];
+      if (file) {
+        // Display file name
+        fileName.textContent = `File Name: ${file.name}`;
+        
+        // Display image preview
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          previewImage.src = e.target.result;
+          previewImage.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+
+        // Simulate image processing
+        output.textContent = 'Processing the image...';
+
+        const formData = new FormData();
+        formData.append('file', file);
+
+        try {
+          const response = await fetch('/predict', {
+            method: 'POST',
+            body: formData
+          });
+
+          const result = await response.json();
+
+          if (result.error) {
+            output.textContent = `Error: ${result.error}`;
+          } else {
+            output.textContent = `Result: ${result.label} `;
+          }
+        } catch (err) {
+          output.textContent = 'Error: Could not connect to the server.';
+        }
+      }
+    });
+    function redirectToMain() {
+      window.location.href = 'http://127.0.0.1:5000/';
+    }
+  </script>
+</body>
+</html>

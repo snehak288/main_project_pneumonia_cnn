@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Single Page Website</title>
+  <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet'>
+  <style>
+
+
+
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      scroll-behavior: smooth; /* Smooth scrolling effect */
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: #15161a;
+      padding: 10px 0;
+      z-index: 1000;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    nav a:hover {
+      background-color: #222336;
+    }
+
+    section {
+      height: 100vh; /* Full screen height */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      scroll-padding-top: 60px; /* Offset for the fixed menu bar */
+    }
+
+    .section-header {
+      width: 100%;
+      background-color: #25272b;
+      color: white;
+      text-align: center;
+      padding: 10px 0;
+      font-size: 1.5rem;
+      position: sticky;
+      top: 60px; /* Keeps the section header visible while scrolling */
+      z-index: 999;
+    }
+
+    .content-box {
+      width: 90%;
+      max-width: 1000px;
+      background-color: #ffffff00;
+     
+      margin-top: 100px; /* Add spacing below the sticky title */
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      font-family: 'Open Sans', sans-serif; /* Example font */
+    font-size: 16px; /* Adjust font size for readability */
+    line-height: 1.6; /* Improve readability */
+    }
+
+    #home {
+      text-align: center;
+      background-image: url('{{ url_for('static', filename='dnaa.gif') }}'); /* Replace 'your-image.jpg' with your image URL */
+      background-size: cover; /* Makes the image cover the entire section */
+      background-position: center; /* Centers the image */
+      background-repeat: no-repeat; /* Prevents the image from repeating */
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    #about {
+      font-family: ;
+      background-image: url('{{ url_for('static', filename='blue1.jpg') }}');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover; 
+      background-color: #fdfdfdea;
+      font-size: large;
+    }
+    #services {
+      background-image: url('{{ url_for('static', filename='blue1.jpg') }}');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-color: #ffffff;
+      font-size: small;
+    }
+
+    #faq-section {
+      background-image: url('{{ url_for('static', filename='blue4.jpg') }}');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-color: #ffffff;
+      font-size: small;
+    }
+
+    #contact {
+      background-image: url('{{ url_for('static', filename='black.gif') }}');
+      background-color: #000000;
+      font-family: 'Raleway';font-size: 22px;
+      color: azure;
+      font-size: large;
+      
+    }
+
+    .button {
+      padding: 15px 30px;
+      margin-top: 20px;
+      background-color: #2e66c7a3;
+      color: white;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: background-color 0.3s;
+    }
+
+    .button:hover {
+      background-color: #183b8e;
+    }
+    footer {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 15px 0;
+      font-size: 0.9rem;
+    }
+
+    footer a {
+      color: #4CAF50;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    footer a:hover {
+      color: #76c776;
+    }
+
+    #faq-section {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+/*
+.faq-container {
+    margin-top: 20px;
+}
+*/
+
+.faq-item {
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+}
+.faq-question {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+}
+.faq-answer {
+    display: none;
+    padding-top: 5px;
+    color: #f0eeee;
+}
+.faq-toggle {
+    font-size: 20px;
+    color: #64a5ec;
+}
+.faq-toggle:hover {
+    color: #0056b3;
+}
+
+
+  </style>
+
+
+
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#services">Prevention</a>
+      <a href="#faq-section">FAQ</a>
+      <a href="#contact">How It Works</a>
+      <a href="http://127.0.0.1:5000/upload">Upload Image</a>
+      
+    </nav>
+  </header>
+
+  <section id="home">
+    <h1 style="font-family:'Raleway';font-size: 22px;" >Welcome to Pneumonia Detection</h1>
+    <a href="/upload" class="button">Get Started</a>
+  </section>
+
+  <section id="about">
+    <div class="section-header">Pneumonia</div>
+    <div class="content-box">
+      <p >Pneumonia is a serious respiratory infection that causes inflammation in the air sacs (alveoli) of the lungs, which can fill with fluid or pus, making breathing difficult. It can affect people of all ages but is particularly dangerous for infants, older adults, and individuals with weakened immune systems or pre-existing health conditions.</p><p>Pneumonia has several causes, including bacterial, viral, or fungal infections. The most common bacterial cause is Streptococcus pneumoniae, while viruses like influenza, respiratory syncytial virus (RSV), and coronaviruses (e.g., COVID-19) are also significant contributors. Fungal pneumonia is less common and generally affects those with weakened immune defenses. Inhalation of food, liquids, or vomit into the lungs can also result in aspiration pneumonia.
+    </p><p>The symptoms of pneumonia can vary depending on its severity and the cause. Typical symptoms include a persistent cough that may produce mucus or phlegm (sometimes blood-tinged), fever, chills, shortness of breath, chest pain that worsens with deep breaths or coughing, fatigue, and loss of appetite. In severe cases, individuals may experience rapid breathing, low oxygen levels, confusion (especially in older adults), or bluish lips or fingernails. Children may exhibit additional symptoms such as wheezing, difficulty feeding, or irritability.</p>
+    </div>
+  </section>
+
+  <section id="services" style="font-family:'Raleway';font-size: 18px;">
+    <div class="section-header">Prevention and Treatment</div>
+    <div class="content-box">
+      <p>
+        Pneumonia can often be prevented with proper precautions and care. Vaccines are one of the most effective ways to reduce the risk. The pneumococcal vaccine protects against bacterial pneumonia, while the flu and COVID-19 vaccines reduce the risk of viral infections that can lead to pneumonia. Good hygiene practices, such as frequent handwashing and avoiding close contact with sick individuals, help prevent the spread of germs. For smokers, quitting smoking can significantly improve lung health and lower the risk of respiratory infections. Maintaining a healthy immune system through proper nutrition, regular exercise, and adequate sleep is also essential in preventing pneumonia.
+        </p><p>
+       
+        Treatment for pneumonia depends on the cause and severity of the condition. For bacterial pneumonia, antibiotics are the primary line of treatment and are typically very effective when administered promptly. Viral pneumonia may be treated with antiviral medications, rest, and supportive care to manage symptoms like fever and cough. Fungal pneumonia is treated with antifungal medications. In severe cases, hospitalization may be required, particularly if the individual experiences difficulty breathing, low oxygen levels, or complications such as sepsis. Supportive treatments, including oxygen therapy, intravenous fluids, and breathing assistance, may be necessary. Early diagnosis and timely treatment are critical in preventing complications and ensuring recovery.</p>
+    </div>
+  </section>
+
+  <section id="faq-section" style="font-family:'Raleway';font-size: 18px;">
+    <div class="section-header">FAQs</div>
+    <div class="content-box">
+    <!--<div class="faq-container">
+         Example FAQ Items -->
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span>What is pneumonia?</span>
+                <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-answer">Pneumonia is an infection that inflames the air sacs in one or both lungs.</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <span>What are the common symptoms of pneumonia?</span>
+                <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-answer">Symptoms include cough, fever, chills, difficulty breathing, and chest pain.</div>
+        </div>
+        <!-- Add more FAQ items dynamically or manually -->
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+              <span>Is pneumonia contagious?</span>
+              <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-answer">Certain types of pneumonia, like viral or bacterial pneumonia, can be contagious.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+            <span>Can pneumonia be prevented?</span>
+            <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">Yes, through vaccinations, proper hygiene, and avoiding smoking.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+          <span>What are the treatments for pneumonia?</span>
+          <span class="faq-toggle">+</span>
+      </div>
+      <div class="faq-answer">Treatment may include antibiotics, antiviral medications, and supportive care like oxygen therapy.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFaq(this)">
+        <span>Should I see a doctor if I suspect pneumonia?</span>
+        <span class="faq-toggle">+</span>
+    </div>
+    <div class="faq-answer">Yes, see a doctor if you have severe symptoms or difficulty breathing.</div>
+</div>
+<div class="faq-item">
+  <div class="faq-question" onclick="toggleFaq(this)">
+      <span>Can pneumonia be fatal?</span>
+      <span class="faq-toggle">+</span>
+  </div>
+  <div class="faq-answer">Yes, if left untreated, pneumonia can be life-threatening, especially in vulnerable groups.</div>
+</div>
+    <!--</div>  -->
+  </div>
+  </section>
+
+
+  <section id="contact">
+    <div class="section-header" style="font-family:'Raleway';font-size: 22px;" >How It Works</div>
+    <div class="content-box">
+      <p>Our software is powered by the ResNet-18 architecture, a convolutional neural network widely used for image classification tasks. ResNet-18 is designed to handle complex patterns in images through its residual learning framework, making it effective for medical image analysis.
+
+        The model is trained on the Kaggle Chest X-Ray dataset, which contains a total of 5,863 labeled chest X-ray images in JPEG format. The dataset is organized into three folders: train, test, and validation, with subfolders for two categories: Pneumonia and Normal. This structured dataset ensures a systematic approach to training and evaluating the model’s performance.
+        
+        Users can upload chest X-ray scans in JPEG format through the software. The uploaded scans are processed and analyzed by the ResNet-18 model, which has learned to differentiate between pneumonia and normal cases based on patterns in the training data. The software then provides an output indicating whether pneumonia is detected or not, offering a quick diagnostic aid.</p>
+    </div>
+  </section>
+
+  <script>
+    function toggleFaq(element) {
+        const answer = element.nextElementSibling;
+        const toggle = element.querySelector('.faq-toggle');
+        if (answer.style.display === 'block') {
+            answer.style.display = 'none';
+            toggle.textContent = '+';
+        } else {
+            answer.style.display = 'block';
+            toggle.textContent = '-';
+        }
+    }
+    </script>
+    
+</body>
+<footer>
+  © 2025 Pneumonia Detection System. All rights reserved.
+</footer>
+</html>
+
+
