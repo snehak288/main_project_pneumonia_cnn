@@ -3,7 +3,7 @@ import torch
 from torchvision import transforms
 from PIL import Image
 import os
-
+'''git'''
 app = Flask(__name__)
 
 # Load the saved model
